@@ -1,46 +1,522 @@
-# Getting Started with Create React App
+# BenAwad-ReactJSTS-20190905
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Ben Awad - React Typescript Tutorial (Sep 5, 2019) 
 
-## Available Scripts
+### Link: 
+https://www.youtube.com/watch?v=Z5iWr6Srsj8
 
-In the project directory, you can run:
+### Description: 
 
-### `yarn start`
+Learn how to start using Typescript in your React code. I go over props, hooks, and render props.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Snippets: https://gist.github.com/benawad/1e9dd...
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Code: https://github.com/benawad/react-typescript-example
 
-### `yarn test`
+For more information on this checkout: https://github.com/typescript-cheatsh..
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `yarn build`
+## TABLE OF CONTENTS
+- [BenAwad-ReactJSTS-20190905](#benawad-reactjsts-20190905)
+    - [Ben Awad - React Typescript Tutorial (Sep 5, 2019)](#ben-awad---react-typescript-tutorial-sep-5-2019)
+    - [Link:](#link)
+    - [Description:](#description)
+  - [TABLE OF CONTENTS](#table-of-contents)
+  - [- 10 - Counter](#--10---counter)
+- [1 - Project Setup](#1---project-setup)
+- [2 - Specifiying type of functional components](#2---specifiying-type-of-functional-components)
+- [3 - Specifying props of the components](#3---specifying-props-of-the-components)
+  - [Directly specifying the type of the props](#directly-specifying-the-type-of-the-props)
+  - [Implementing an interface to specify the type of the props](#implementing-an-interface-to-specify-the-type-of-the-props)
+- [4 - Passing Props](#4---passing-props)
+- [5 - Optional Props ("?")](#5---optional-props-)
+- [6 - useState](#6---usestate)
+  - [useState with objects](#usestate-with-objects)
+- [7 - useRef](#7---useref)
+- [8 - onChange](#8---onchange)
+- [9 - useReducer](#9---usereducer)
+- [10 - Counter](#10---counter)
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# 1 - Project Setup
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bas
+npx create-react-app benawad-reactjsts-20190905 --typescript
+cd benawad-reactjsts-20190905 && yarn start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+change your file structure to be something like this at src:
 
-### `yarn eject`
+then clean up the code
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+├── App.tsx
+├── ReducerExample.tsx
+├── TextField.tsx
+├── index.tsx
+└── react-app-env.d.ts
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+rafc snippet on text-field and app.tsx:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```jsx
+import React from "react";
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+const App: React.FC = () => {
+  return (
+    <div>
+      <p>Hello World</p>
+    </div>
+  );
+};
 
-## Learn More
+export default App;
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+TextField.tsx
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```jsx
+import React from "react";
+
+export const TextField = () => {
+  return (
+    <div>
+      <input type="text" />
+    </div>
+  );
+};
+```
+
+# 2 - Specifiying type of functional components
+
+TextField.tsx
+
+```jsx
+import React from "react";
+
+export const TextField: React.FC = () => {
+  return (
+    <div>
+      <input type="text" />
+    </div>
+  );
+};
+```
+
+# 3 - Specifying props of the components
+
+## Directly specifying the type of the props
+
+TextField.tsx: 
+
+```jsx
+import React from "react";
+
+export const TextField: React.FC<{ text: string }> = () => {
+  return (
+    <div>
+      <input type="text" />
+    </div>
+  );
+};
+```
+
+## Implementing an interface to specify the type of the props
+
+TextField.tsx:
+
+```jsx
+import React from "react";
+
+interface Props {
+  text: string;
+}
+
+export const TextField: React.FC<Props> = () => {
+  return (
+    <div>
+      <input type="text" />
+    </div>
+  );
+};
+```
+
+---
+
+# 4 - Passing Props
+
+Back to App.tsx
+
+```jsx
+import React from "react";
+
+//Child Interface of the Person Property in Props Interface
+interface Person {
+  firstName: string;
+  lastName: string;
+}
+
+//Main Interface
+interface Props {
+  text: string;
+  isBoolean?: boolean;
+  number?: number;
+  fn?: (param: string) => string;
+  object?: {
+    property: string;
+  };
+  person?: Person;
+}
+
+export const TextField: React.FC<Props> = () => {
+  return (
+    <div>
+      <input type="text" />
+    </div>
+  );
+};
+```
+
+Also has autocompletion in the parameters of your functional components
+
+# 5 - Optional Props ("?")
+
+TextField.tsx:
+
+```jsx
+interface Props {
+  text: string;
+  isBoolean?: boolean;
+  number?: number;
+  fn?: (param: string) => string;
+  object?: {
+    property: string;
+  };
+  person?: Person;
+}
+```
+
+# 6 - useState
+
+ts infers it had to be a number as seen in the count useState hook. 
+
+TextField.tsx:
+
+```jsx
+import React, { useState, useRef } from "react";
+
+interface Person {
+  firstName: string;
+  lastName: string;
+}
+
+interface Props {
+  text: string;
+  isBoolean?: boolean;
+  number?: number;
+  fn?: (param: string) => string;
+  person: Person;
+}
+
+export const TextField: React.FC<Props> = () => {
+  const [count, setCount] = useState(5);
+  setCount(null);
+  return (
+    <div>
+      <input type="text" />
+    </div>
+  );
+};
+```
+
+However if it is null you might want to do it like this:
+
+TextField.tsx:
+
+```tsx
+import React, { useState, useRef } from "react";
+
+interface Person {
+  firstName: string;
+  lastName: string;
+}
+
+interface Props {
+  text: string;
+  isBoolean?: boolean;
+  number?: number;
+  fn?: (param: string) => string;
+  person: Person;
+}
+
+export const TextField: React.FC<Props> = () => {
+  const [count, setCount] = useState<number | null>(5);
+  setCount(null);
+  return (
+    <div>
+      <input type="text" />
+    </div>
+  );
+};
+```
+
+## useState with objects
+
+way 1:
+
+TextField.tsx
+
+```tsx
+const [count, setCount] = useState<{ text: string }>({ text: "Hello" });
+  setCount({ text: "world" });
+```
+
+way 2: implement a new interface
+
+TextField.tsx
+
+```tsx
+import React, { useState, useRef } from "react";
+
+interface Person {
+  firstName: string;
+  lastName: string;
+}
+
+interface Props {
+  text: string;
+  isBoolean?: boolean;
+  number?: number;
+  fn?: (param: string) => string;
+  person: Person;
+}
+
+interface TextNode {
+  text: string;
+}
+
+export const TextField: React.FC<Props> = () => {
+  // const [count, setCount] = useState<number | null>(5);
+  // setCount(null);
+
+  // const [count, setCount] = useState<{ text: string }>({ text: "Hello" });
+  // setCount({ text: "world" });
+
+  const [count, setCount] = useState<TextNode>({ text: "Hello" });
+  setCount({ text: "world" });
+  return (
+    <div>
+      <input type="text" />
+    </div>
+  );
+};
+```
+
+# 7 - useRef
+
+TextField.tsx:
+
+```tsx
+export const TextField: React.FC<Props> = () => {
+  // Start: with useRef
+  const inputRef = useRef<HTMLInputElement>(null);
+  // End: with useRef
+
+  return (
+    <div>
+      <input type="text" ref={inputRef} />
+    </div>
+  );
+};
+```
+
+hovering over ref in the input tag, when filling out what typescript wants to expect, gives you a pop out that will give you options for acceptable types.
+
+another example for divRef:
+
+TextField.tsx:
+
+```tsx
+export const TextField: React.FC<Props> = () => {
+  // Start: with useRef
+  const inputRef = useRef<HTMLInputElement>(null);
+  const divRef = useRef<HTMLDivElement>(null);
+
+  // End: with useRef
+
+  return (
+    <div ref={divRef}>
+      <input type="text" ref={inputRef} />
+    </div>
+  );
+};
+```
+
+# 8 - onChange
+
+TextField.tsx
+
+```tsx
+import React, { useState, useRef } from "react";
+
+interface Person {
+  firstName: string;
+  lastName: string;
+}
+
+interface Props {
+  text: string;
+  isBoolean?: boolean;
+  number?: number;
+  fn?: (param: string) => string;
+  person: Person;
+  handleChange: () => void;
+}
+
+interface TextNode {
+  text: string;
+}
+
+export const TextField: React.FC<Props> = ({ handleChange }) => {
+  // Start: with useState
+  // const [count, setCount] = useState<number | null>(5);
+  // setCount(null);
+
+  // const [count, setCount] = useState<{ text: string }>({ text: "Hello" });
+  // setCount({ text: "world" });
+
+  const [count, setCount] = useState<TextNode>({ text: "Hello" });
+  setCount({ text: "world" });
+  // End: with useState
+
+  // Start: with useRef
+  const inputRef = useRef<HTMLInputElement>(null);
+  const divRef = useRef<HTMLDivElement>(null);
+
+  // End: with useRef
+
+  return (
+    <div ref={divRef}>
+      <input type="text" ref={inputRef} onChange={handleChange} />
+    </div>
+  );
+};
+```
+
+for example you have this setup, mind onChange handleChange in input tag, the props interface, and parameters
+
+hover over onChange attribute of input tag then copy paste the suggested type
+
+```tsx
+interface Props {
+  text: string;
+  isBoolean?: boolean;
+  number?: number;
+  fn?: (param: string) => string;
+  person: Person;
+  handleChange: (event: React.ChangeEventHandler<HTMLInputElement>) => void;
+}
+```
+
+then at app.tsx you have nice autocompletion
+
+# 9 - useReducer
+
+ReducerExample.tsx
+
+```tsx
+import React, { useReducer } from "react";
+
+type Actions =
+  | { type: "add"; text: string }
+  | {
+      type: "remove";
+      idx: number;
+    };
+
+interface Todo {
+  text: string;
+  complete: boolean;
+}
+
+type State = Todo[];
+
+const TodoReducer = (state: State, action: Actions) => {
+  switch (action.type) {
+    case "add":
+      return [...state, { text: action.text, complete: false }];
+    case "remove":
+      return state.filter((_, i) => action.idx !== i);
+    default:
+      return state;
+  }
+};
+
+export const ReducerExample: React.FC = () => {
+  const [todos, dispatch] = useReducer(TodoReducer, []);
+
+  return (
+    <div>
+      {JSON.stringify(todos)}
+      <button
+        onClick={() => {
+          dispatch({ type: "add", text: "..." });
+        }}
+      >
+        +
+      </button>
+    </div>
+  );
+};
+```
+
+# 10 - Counter
+
+touch new src/Counter.tsx
+
+```tsx
+import React, { useState } from "react";
+
+interface Props {
+  children: (data: {
+    count: number;
+    setCount: React.Dispatch<React.SetStateAction<number>>;
+  }) => JSX.Element | null;
+}
+
+export const Counter = ({ children }) => {
+  const [count, setCount] = useState(0);
+  return <div>{children({ count, setCount })}</div>;
+};
+```
+
+app.tsx
+
+```tsx
+import React from "react";
+import { TextField } from "./TextField";
+import { Counter } from "./Counter";
+
+const App: React.FC = () => {
+  return (
+    <div>
+      <TextField
+        text="hello"
+        person={{ firstName: "firstName", lastName: "lastName" }}
+      />
+
+      <Counter>
+        {({ count, setCount }) => (
+          <div>
+            {count}
+            <button onClick={() => setCount(count++)}></button>
+          </div>
+        )}
+      </Counter>
+    </div>
+  );
+};
+
+export default App;
+```
