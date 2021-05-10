@@ -1,13 +1,11 @@
 # BenAwad-ReactJSTS-20190905
 
-### Ben Awad - React Typescript Tutorial (Sep 5, 2019) 
+> Ben Awad - React Typescript Tutorial (Sep 5, 2019)
 
-### Link: 
-https://www.youtube.com/watch?v=Z5iWr6Srsj8
+Link: https://www.youtube.com/watch?v=Z5iWr6Srsj8
 
-### Description: 
-
-Learn how to start using Typescript in your React code. I go over props, hooks, and render props.
+**Description**
+> Learn how to start using Typescript in your React code. I go over props, hooks, and render props.
 
 Snippets: https://gist.github.com/benawad/1e9dd...
 
@@ -17,13 +15,8 @@ For more information on this checkout: https://github.com/typescript-cheatsh..
 
 ---
 
-## TABLE OF CONTENTS
+> TABLE OF CONTENTS
 - [BenAwad-ReactJSTS-20190905](#benawad-reactjsts-20190905)
-    - [Ben Awad - React Typescript Tutorial (Sep 5, 2019)](#ben-awad---react-typescript-tutorial-sep-5-2019)
-    - [Link:](#link)
-    - [Description:](#description)
-  - [TABLE OF CONTENTS](#table-of-contents)
-  - [- 10 - Counter](#--10---counter)
 - [1 - Project Setup](#1---project-setup)
 - [2 - Specifiying type of functional components](#2---specifiying-type-of-functional-components)
 - [3 - Specifying props of the components](#3---specifying-props-of-the-components)
@@ -37,6 +30,7 @@ For more information on this checkout: https://github.com/typescript-cheatsh..
 - [8 - onChange](#8---onchange)
 - [9 - useReducer](#9---usereducer)
 - [10 - Counter](#10---counter)
+
 ---
 
 # 1 - Project Setup
